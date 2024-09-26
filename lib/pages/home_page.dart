@@ -1,99 +1,97 @@
+import 'package:fit_pose/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation _colorTween, _homeTween, _yogaTween, _iconTween, _drawerTween;
+  late AnimationController _textAnimationController;
+
+  @override
+  void initState() {
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 0));
+    _colorTween = ColorTween(begin: Colors.transparent, end: Colors.white)
+        .animate(_animationController);
+    _iconTween = ColorTween(begin: Colors.white, end: Colors.lightBlue)
+        .animate(_animationController);
+    _drawerTween = ColorTween(begin: Colors.white, end: Colors.black)
+        .animate(_animationController);
+    _homeTween = ColorTween(begin: Colors.white, end: Colors.blue)
+        .animate(_animationController);
+    _yogaTween = ColorTween(begin: Colors.white, end: Colors.black)
+        .animate(_animationController);
+    _textAnimationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 0));
+    super.initState();
+  }
+
+  bool scrollListner(ScrollNotification scrollNotification) {
+    bool scroll = false;
+    if (scrollNotification.metrics.axis == Axis.vertical) {
+      _animationController.animateTo(scrollNotification.metrics.pixels / 80);
+      _textAnimationController.animateTo(scrollNotification.metrics.pixels);
+      return scroll = true;
+    }
+    return scroll;
+  }
+
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Fit Pose'),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
+      key: scaffoldKey,
+      drawer: Drawer(),
+      backgroundColor: Colors.white,
+      body: NotificationListener(
+        onNotification: scrollListner,
+        child: Stack(
           children: [
-            //Upper part
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      Text("1"),
-                      Text("Steak"),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Text("179"),
-                      Text("KCAL"),
-                    ],
-                  ),
-                  Column(
-                    children: [Text('12'), Text('Minutes')],
-                  )
-                ],
-              ),
-            ),
-
-            //divider
-            Divider(
-              thickness: 3,
-              indent: 30,
-              endIndent: 30,
-            ),
-
-            //for all section
             Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 25.0,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              height: double.infinity,
+              child: Stack(
                 children: [
-                  Text('Yoga for all'),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: Container(height: 150, color: Colors.grey),
+                  SingleChildScrollView(
+                    child: Stack(
+                      children: [
+                        Column(
+                          children: [
+                            Container(
+                              height: 1000,
+                              color: Colors.blue,
+                            ),
+                            Container(
+                              height: 1000,
+                              color: Colors.green,
+                            ),
+                            Container(
+                              height: 1000,
+                              color: Colors.blue,
+                            )
+                          ],
+                        )
+                      ],
+                    ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: Container(height: 150, color: Colors.grey),
-                  ),
+                  CustomAppBar(
+                      animationController: _animationController,
+                      colorsTween: _colorTween,
+                      drawerTween: _drawerTween,
+                      homeTween: _homeTween,
+                      iconTween: _iconTween,
+                      onPressed: () {
+                        scaffoldKey.currentState?.openDrawer();
+                      },
+                      yogaTween: _yogaTween)
                 ],
               ),
-            ),
-
-            //for Under Age
-            Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 25.0,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Yoga for under age'),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: Container(height: 150, color: Colors.grey),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: Container(height: 150, color: Colors.grey),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: Container(height: 150, color: Colors.grey),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: Container(height: 150, color: Colors.grey),
-                  ),
-                ],
-              ),
-            ),
+            )
           ],
         ),
       ),
