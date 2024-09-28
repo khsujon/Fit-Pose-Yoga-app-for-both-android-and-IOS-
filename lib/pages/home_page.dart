@@ -63,16 +63,118 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         Column(
                           children: [
                             Container(
-                              height: 1000,
-                              color: Colors.blue,
+                              padding:
+                                  const EdgeInsets.fromLTRB(50, 120, 50, 30),
+                              decoration: const BoxDecoration(
+                                  color: Colors.blue,
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(20),
+                                      bottomRight: Radius.circular(20))),
+                              child: const Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        '1',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                      ),
+                                      Text(
+                                        'Streak',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 13),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        '120',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                      ),
+                                      Text(
+                                        'kCal',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 13),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        '12',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                      ),
+                                      Text(
+                                        'Minutes',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 13),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                             Container(
-                              height: 1000,
-                              color: Colors.green,
-                            ),
-                            Container(
-                              height: 1000,
-                              color: Colors.blue,
+                              margin: EdgeInsets.all(20),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.only(bottom: 15),
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Text(
+                                      'For All',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Stack(
+                                    children: [
+                                      Container(
+                                        height: 150,
+                                        decoration: const BoxDecoration(
+                                            image: DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: NetworkImage(
+                                                    'https://images.unsplash.com/photo-1642903639926-7720f78fad09?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8d29tYW4lMjB5b2dhfGVufDB8fDB8fHww'))),
+                                      ),
+                                      Container(
+                                        height: 150,
+                                        color: Colors.black26,
+                                      ),
+                                      const Positioned(
+                                        left: 10,
+                                        top: 10,
+                                        right: 20,
+                                        child: Text(
+                                          'For Beginners',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      const Positioned(
+                                        left: 10,
+                                        top: 35,
+                                        right: 20,
+                                        child: Text(
+                                          'Last Time: 16 Jun',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
                             )
                           ],
                         )
